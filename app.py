@@ -423,6 +423,25 @@ def api_calculate_minimum(form_id, field_name):
         'non_numeric_count': non_numeric_count
     })
 
+@app.route('/api/calculate_clustering/<form_id>/<field_name>', methods=['POST'])
+def api_calculate_clustering(form_id, field_name):
+    if 'username' not in session or session.get('role') != 'admin':
+        return jsonify({'error': 'Not authorized'}), 403
+    
+    # Get clustering parameters from request
+    data = request.json
+    num_clusters = data.get('num_clusters')
+    members_per_cluster = data.get('members_per_cluster')
+    
+    # Import the calculate_clustering module
+    from function.calculate_clustering import cluster_submissions
+    
+    # Perform clustering on the specified field
+    clustering_results = cluster_submissions(form_id, field_name, num_clusters, members_per_cluster)
+    
+    # Return the results as JSON
+    return jsonify(clustering_results)
+
 if __name__ == '__main__':
     ensure_data_files()
     app.run(debug=True)

@@ -32,10 +32,11 @@ MatchIt Form System 可广泛应用于各种需要表单收集数据的场景，
 ![image](https://github.com/user-attachments/assets/75f2dfab-6a36-4c3b-9af5-d5bf7f42b7a8)
 
 
-5. **数据统计**：支持计算表单字段的平均值、最大值和最小值，为数据分析提供基础支持。
+5. **数据统计**：支持计算表单字段的平均值、最大值、最小值以及进行聚类处理，为数据分析提供基础支持。
 
 
-![image](https://github.com/user-attachments/assets/d0c2de5e-f32b-47e3-96a6-3b3368f5c854)
+![image](https://github.com/user-attachments/assets/b93adc33-abd2-47e1-92d4-1f606ca84554)
+
 
 
 ## 目录结构
@@ -45,7 +46,8 @@ MatchIt/
 ├── function/
 │   ├── calculate_average.py  # 计算字段平均值的模块
 │   ├── calculate_maximum.py  # 计算字段最大值的模块
-│   └── calculate_minimum.py  # 计算字段最小值的模块
+│   ├── calculate_minimum.py  # 计算字段最大值的模块
+│   └── calculate_clustering.py  # 对数据进行聚类的模块
 ├── templates/
 │   ├── all_submissions.html  # 显示所有表单提交记录的模板
 │   ├── base.html             # 基础模板
@@ -59,6 +61,7 @@ MatchIt/
 │       ├── average_calculator.js # 计算平均值的 JavaScript 文件
 │       ├── maximum_calculator.js # 计算最大值的 JavaScript 文件
 │       ├── minimum_calculator.js # 计算最小值的 JavaScript 文件
+│       ├── minimum_clustering.js # 计算最小值的 JavaScript 文件
 │       └── script.js           # 主 JavaScript 文件
 └── data/
     ├── users.json            # 用户数据文件
@@ -92,6 +95,7 @@ python app.py
 - `calculate_average.py`：计算表单字段的平均值。
 - `calculate_maximum.py`：计算表单字段的最大值。
 - `calculate_minimum.py`：计算表单字段的最小值。
+- `calculate_clustering.py`：计算表单字段的聚类结果。
 
 ### 模板文件
 - 所有模板文件都使用 Jinja2 模板引擎，用于生成 HTML 页面。
@@ -101,26 +105,7 @@ python app.py
 - `average_calculator.js`、`maximum_calculator.js` 和 `minimum_calculator.js` 分别用于计算平均值、最大值和最小值，并通过 AJAX 请求与后端交互。
 - `script.js` 包含了表单验证、复选框处理和动态字段选项等功能。
 
-## API 接口
-### 获取表单提交记录
-- **URL**：`/api/submissions/<form_id>`
-- **方法**：`GET`
-- **描述**：根据表单 ID 获取表单的提交记录。管理员可以获取所有提交记录，普通用户只能获取自己的提交记录。
 
-### 计算字段平均值
-- **URL**：`/api/calculate_average/<form_id>/<field_name>`
-- **方法**：`GET`
-- **描述**：计算指定表单字段的平均值。
-
-### 计算字段最大值
-- **URL**：`/api/calculate_maximum/<form_id>/<field_name>`
-- **方法**：`GET`
-- **描述**：计算指定表单字段的最大值。
-
-### 计算字段最小值
-- **URL**：`/api/calculate_minimum/<form_id>/<field_name>`
-- **方法**：`GET`
-- **描述**：计算指定表单字段的最小值。
 
 ## 移植与扩展
 MatchIt Form System 的模块化设计使其易于移植和扩展。以下是一些可能的扩展方向：
