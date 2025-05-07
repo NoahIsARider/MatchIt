@@ -14,7 +14,6 @@ MatchIt Form System 可广泛应用于各种需要表单收集数据的场景，
 
 2. **表单管理**：管理员可以创建、编辑和启用/禁用表单，灵活配置表单的标题、描述和字段信息。
 
-![image](https://github.com/user-attachments/assets/2ae22a67-d4fc-4b38-bba7-ad5aad412bfe)
 
 
 ![image](https://github.com/user-attachments/assets/c7a665f7-d6a8-4562-84cf-2d6a91465cb4)
