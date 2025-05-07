@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if form %}Edit Form{% else %}Create New Form{% endif %} - MatchIt Form System{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>{% if form %}Edit Form{% else %}Create New Form{% endif %}</h2>
+        <p>Design your form by adding fields and configuring their properties</p>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Form Details</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" id="formEditor">
+            <div class="mb-3">
+                <label for="form_title" class="form-label">Form Title</label>
+                <input type="text" class="form-control" id="form_title" name="form_title" value="{{ form.title if form else '' }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="form_description" class="form-label">Form Description</label>
+                <textarea class="form-control" id="form_description" name="form_description" rows="3">{{ form.description if form else '' }}</textarea>
+            </div>
+            
+            <h5 class="mt-4 mb-3">Form Fields</h5>
+            <div id="fieldsContainer">
+                {% if form and form.fields %}
+                    {% for field in form.fields %}
+                        <div class="card mb-3 field-card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label class="form-label">Field Name</label>
+                                            <input type="text" class="form-control" name="field_name_{{ loop.index0 }}" value="{{ field.name }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">Field Type</label>
+                                            <select class="form-select field-type" name="field_type_{{ loop.index0 }}" data-index="{{ loop.index0 }}">
+                                                <option value="text" {% if field.type == 'text' %}selected{% endif %}>Text</option>
+                                                <option value="textarea" {% if field.type == 'textarea' %}selected{% endif %}>Text Area</option>
+                                                <option value="number" {% if field.type == 'number' %}selected{% endif %}>Number</option>
+                                                <option value="email" {% if field.type == 'email' %}selected{% endif %}>Email</option>
+                                                <option value="date" {% if field.type == 'date' %}selected{% endif %}>Date</option>
+                                                <option value="select" {% if field.type == 'select' %}selected{% endif %}>Dropdown</option>
+                                                <option value="radio" {% if field.type == 'radio' %}selected{% endif %}>Radio Buttons</option>
+                                                <option value="checkbox" {% if field.type == 'checkbox' %}selected{% endif %}>Checkboxes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">Required</label>
+                                            <div class="form-check mt-2">
+                                                <input class="form-check-input" type="checkbox" name="field_required_{{ loop.index0 }}" {% if field.required %}checked{% endif %}>
+                                                <label class="form-check-label">Make field required</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="mb-3 text-end">
+                                            <label class="form-label">&nbsp;</label>
+                                            <div>
+                                                <button type="button" class="btn btn-danger btn-sm remove-field">Remove</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options-container {% if field.type not in ['select', 'radio', 'checkbox'] %}d-none{% endif %}">
+                                    <div class="mb-3">
+                                        <label class="form-label">Options (comma separated)</label>
+                                        <input type="text" class="form-control" name="field_options_{{ loop.index0 }}" value="{{ field.options|join(',') }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+            <div class="mb-3">
+                <button type="button" id="addField" class="btn btn-success">
+                    <i class="bi bi-plus-circle"></i> Add Field
+                </button>
+            </div>
+            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save Form</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fieldsContainer = document.getElementById('fieldsContainer');
+        const addFieldButton = document.getElementById('addField');
+        let fieldIndex = {{ form.fields|length if form and form.fields else 0 }};
+        
+        // Add new field
+        addFieldButton.addEventListener('click', function() {
+            const fieldCard = document.createElement('div');
+            fieldCard.className = 'card mb-3 field-card';
+            fieldCard.innerHTML = `
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">Field Name</label>
+                                <input type="text" class="form-control" name="field_name_${fieldIndex}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Field Type</label>
+                                <select class="form-select field-type" name="field_type_${fieldIndex}" data-index="${fieldIndex}">
+                                    <option value="text">Text</option>
+                                    <option value="textarea">Text Area</option>
+                                    <option value="number">Number</option>
+                                    <option value="email">Email</option>
+                                    <option value="date">Date</option>
+                                    <option value="select">Dropdown</option>
+                                    <option value="radio">Radio Buttons</option>
+                                    <option value="checkbox">Checkboxes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Required</label>
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input" type="checkbox" name="field_required_${fieldIndex}">
+                                    <label class="form-check-label">Make field required</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3 text-end">
+                                <label class="form-label">&nbsp;</label>
+                                <div>
+                                    <button type="button" class="btn btn-danger btn-sm remove-field">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="options-container d-none">
+                        <div class="mb-3">
+                            <label class="form-label">Options (comma separated)</label>
+                            <input type="text" class="form-control" name="field_options_${fieldIndex}">
+                        </div>
+                    </div>
+                </div>
+            `;
+            fieldsContainer.appendChild(fieldCard);
+            fieldIndex++;
+            
+            // Add event listeners to the new field
+            addFieldEventListeners(fieldCard);
+        });
+        
+        // Add event listeners to existing fields
+        document.querySelectorAll('.field-card').forEach(fieldCard => {
+            addFieldEventListeners(fieldCard);
+        });
+        
+        function addFieldEventListeners(fieldCard) {
+            // Remove field button
+            fieldCard.querySelector('.remove-field').addEventListener('click', function() {
+                fieldCard.remove();
+            });
+            
+            // Field type change
+            fieldCard.querySelector('.field-type').addEventListener('change', function() {
+                const optionsContainer = fieldCard.querySelector('.options-container');
+                if (['select', 'radio', 'checkbox'].includes(this.value)) {
+                    optionsContainer.classList.remove('d-none');
+                } else {
+                    optionsContainer.classList.add('d-none');
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

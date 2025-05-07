@@ -1,0 +1,107 @@
+[
+    {
+        "id": "87438cc6-b078-421e-9c96-ee67f1def8b3",
+        "form_id": "743f08e7-4210-4509-b2c8-47be763e33dd",
+        "submitted_by": "user",
+        "submitted_at": "2025-05-07T09:09:52.180157",
+        "data": {
+            "test_radiobutton": "1"
+        }
+    },
+    {
+        "id": "652d3eb5-07f1-412f-80a4-5882710909f6",
+        "form_id": "139e5ac3-8a67-4b02-878d-d1713f3d21d2",
+        "submitted_by": "user",
+        "submitted_at": "2025-05-07T09:28:07.639137",
+        "data": {
+            "email": "noahchou2005@gmail.com"
+        }
+    },
+    {
+        "id": "2fe20246-7945-42bc-a5c9-453ad4d92fcd",
+        "form_id": "139e5ac3-8a67-4b02-878d-d1713f3d21d2",
+        "submitted_by": "user2",
+        "submitted_at": "2025-05-07T14:44:22.310116",
+        "data": {
+            "email": "1966322816@qq.com"
+        }
+    },
+    {
+        "id": "688e556e-8e73-4dcf-a69e-89a943dcc622",
+        "form_id": "743f08e7-4210-4509-b2c8-47be763e33dd",
+        "submitted_by": "user2",
+        "submitted_at": "2025-05-07T14:44:29.469795",
+        "data": {
+            "test_radiobutton": "2"
+        }
+    },
+    {
+        "id": "d19a7644-c94c-4f82-8d1f-ea25aa81e0c6",
+        "form_id": "139e5ac3-8a67-4b02-878d-d1713f3d21d2",
+        "submitted_by": "user3",
+        "submitted_at": "2025-05-07T14:44:45.368749",
+        "data": {
+            "email": "202330422321@mail.scut.edu.cn"
+        }
+    },
+    {
+        "id": "05be8238-1201-4375-a4b5-a002865a2716",
+        "form_id": "743f08e7-4210-4509-b2c8-47be763e33dd",
+        "submitted_by": "user3",
+        "submitted_at": "2025-05-07T14:44:50.397868",
+        "data": {
+            "test_radiobutton": "3"
+        }
+    },
+    {
+        "id": "7f0b9cf9-15dd-44e1-ba13-b3be1f5bed7b",
+        "form_id": "743f08e7-4210-4509-b2c8-47be763e33dd",
+        "submitted_by": "user5",
+        "submitted_at": "2025-05-07T14:49:15.656509",
+        "data": {
+            "test_radiobutton": "3"
+        }
+    },
+    {
+        "id": "f283e492-d4ad-4b79-acf9-4f685f69531c",
+        "form_id": "139e5ac3-8a67-4b02-878d-d1713f3d21d2",
+        "submitted_by": "user5",
+        "submitted_at": "2025-05-07T14:49:28.012401",
+        "data": {
+            "email": "fzhouai@connect.ust.hk"
+        }
+    },
+    {
+        "id": "29d35df0-4f5f-4ab2-a8de-dd785e310263",
+        "form_id": "3b8ca7c8-57d7-447d-8214-d8500e0a01ba",
+        "submitted_by": "user",
+        "submitted_at": "2025-05-07T15:12:20.580674",
+        "data": {
+            "field1": "20",
+            "field2": "8",
+            "field3": ""
+        }
+    },
+    {
+        "id": "485e6bae-3be5-4065-8d14-98189e169f8e",
+        "form_id": "3b8ca7c8-57d7-447d-8214-d8500e0a01ba",
+        "submitted_by": "user2",
+        "submitted_at": "2025-05-07T15:13:20.748292",
+        "data": {
+            "field1": "",
+            "field2": "3",
+            "field3": "hello"
+        }
+    },
+    {
+        "id": "27d9638a-c850-4c7d-822c-0d08cb98545c",
+        "form_id": "3b8ca7c8-57d7-447d-8214-d8500e0a01ba",
+        "submitted_by": "user3",
+        "submitted_at": "2025-05-07T15:14:14.398138",
+        "data": {
+            "field1": "22",
+            "field2": "4",
+            "field3": ""
+        }
+    }
+]

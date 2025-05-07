@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}View Submission - MatchIt Form System{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>Submission Details</h2>
+        <p>Form: {{ form.title }}</p>
+    </div>
+    <div class="col-md-4 text-end">
+        {% if session.role == 'admin' %}
+            <a href="{{ url_for('view_form_submissions', form_id=form.id) }}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Submissions
+            </a>
+        {% else %}
+            <a href="{{ url_for('user_dashboard') }}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Dashboard
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Submitted Data</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th style="width: 30%">Submitted By</th>
+                        <td>{{ submission.submitted_by }}</td>
+                    </tr>
+                    <tr>
+                        <th>Submission Date</th>
+                        <td>{{ submission.submitted_at.split('T')[0] }}</td>
+                    </tr>
+                    {% for field in form.fields %}
+                        <tr>
+                            <th>{{ field.name }}</th>
+                            <td>
+                                {% if submission.data[field.name] is string %}
+                                    {{ submission.data[field.name] }}
+                                {% elif submission.data[field.name] is iterable and submission.data[field.name] is not string %}
+                                    <ul class="mb-0">
+                                        {% for item in submission.data[field.name] %}
+                                            <li>{{ item }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    {{ submission.data[field.name] }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

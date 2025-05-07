@@ -1,0 +1,32 @@
+{
+    "admin": {
+        "password": "admin123",
+        "role": "admin",
+        "name": "Administrator"
+    },
+    "user": {
+        "password": "user123",
+        "role": "user",
+        "name": "Test User"
+    },
+    "user2": {
+        "password": "user2123",
+        "role": "user",
+        "name": "Test User 2"
+    },
+    "user3": {
+        "password": "user3123",
+        "role": "user",
+        "name": "Test User 3"
+    },
+    "user4": {
+        "password": "user4123",
+        "role": "user",
+        "name": "Test User 4"
+    },
+    "user5": {
+        "password": "user5123",
+        "role": "user",
+        "name": "Test User 5"
+    }
+}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}All Submissions - MatchIt Form System{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>All Form Submissions</h2>
+        <p>View submissions across all forms</p>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">All Submissions</h5>
+    </div>
+    <div class="card-body">
+        {% if submissions %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Form</th>
+                            <th>Submitted By</th>
+                            <th>Submission Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for submission in submissions %}
+                            <tr>
+                                <td>{{ form_titles.get(submission.form_id, 'Unknown Form') }}</td>
+                                <td>{{ submission.submitted_by }}</td>
+                                <td>{{ submission.submitted_at.split('T')[0] }}</td>
+                                <td>
+                                    <a href="{{ url_for('view_submission', submission_id=submission.id) }}" class="btn btn-sm btn-primary">
+                                        View
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                <p class="mb-0">There are no submissions available.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

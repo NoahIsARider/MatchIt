@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Fill Form - MatchIt Form System{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>{{ form.title }}</h2>
+        <p>{{ form.description }}</p>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="{{ url_for('user_dashboard') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Form Fields</h5>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% for field in form.fields %}
+                <div class="mb-3">
+                    <label for="{{ field.name }}" class="form-label">{{ field.name }}{% if field.required %} <span class="text-danger">*</span>{% endif %}</label>
+                    
+                    {% if field.type == 'text' %}
+                        <input type="text" class="form-control" id="{{ field.name }}" name="{{ field.name }}" {% if field.required %}required{% endif %}>
+                    
+                    {% elif field.type == 'textarea' %}
+                        <textarea class="form-control" id="{{ field.name }}" name="{{ field.name }}" rows="3" {% if field.required %}required{% endif %}></textarea>
+                    
+                    {% elif field.type == 'number' %}
+                        <input type="number" class="form-control" id="{{ field.name }}" name="{{ field.name }}" {% if field.required %}required{% endif %}>
+                    
+                    {% elif field.type == 'email' %}
+                        <input type="email" class="form-control" id="{{ field.name }}" name="{{ field.name }}" {% if field.required %}required{% endif %}>
+                    
+                    {% elif field.type == 'date' %}
+                        <input type="date" class="form-control" id="{{ field.name }}" name="{{ field.name }}" {% if field.required %}required{% endif %}>
+                    
+                    {% elif field.type == 'select' %}
+                        <select class="form-select" id="{{ field.name }}" name="{{ field.name }}" {% if field.required %}required{% endif %}>
+                            <option value="">Select an option</option>
+                            {% for option in field.options %}
+                                <option value="{{ option }}">{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                    
+                    {% elif field.type == 'radio' %}
+                        <div>
+                            {% for option in field.options %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="{{ field.name }}" id="{{ field.name }}_{{ loop.index }}" value="{{ option }}" {% if loop.first and field.required %}required{% endif %}>
+                                    <label class="form-check-label" for="{{ field.name }}_{{ loop.index }}">
+                                        {{ option }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    
+                    {% elif field.type == 'checkbox' %}
+                        <div>
+                            {% for option in field.options %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="{{ field.name }}" id="{{ field.name }}_{{ loop.index }}" value="{{ option }}">
+                                    <label class="form-check-label" for="{{ field.name }}_{{ loop.index }}">
+                                        {{ option }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{{ url_for('user_dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Submit Form</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
